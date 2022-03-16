@@ -6,7 +6,9 @@ let personOptionInput = prompt("Select your move: ");
 let plays = ["Rock", "Paper", "Scissors"];
 let machineOption;
 let str;
-
+let firstChar;
+let restWord;
+let playerOption;
 //Create function for computer's option, it should be random.
 
 function computerPlay() {
@@ -16,15 +18,18 @@ function computerPlay() {
 
 //Create function for the user to insert it's option. Restrict the options to Rock, Paper or Scissors, and allow
 //Upper/Lower case answers, all should return the first case Upper and the rest Lower.
+function correctedWord() {
+firstChar = personOptionInput.slice(0, 1);
+restWord = personOptionInput.slice(1);
+return playerOption = firstChar.toUpperCase() + restWord.toLowerCase();
+}
 
-let firstChar = personOptionInput.slice(0, 1);
-let restWord = personOptionInput.slice(1);
-let playerOption = firstChar.toUpperCase() + restWord.toLowerCase();
-
+playerOption = correctedWord();
 //Create function which takes as parameters the personOption and the machineOption, which plays the game and 
 //compares the results
 
-function playGame(playerOption, machineOption) {
+
+function playRound(playerOption, machineOption) {
     if ((playerOption === "Rock" && machineOption === "Rock") || (playerOption === "Paper" && machineOption === "Paper") || (playerOption === "Scissors" && machineOption === "Scissors")) {
         str = "It's a Tie! Play again to see who wins.";
     } else if ((playerOption === "Rock" && machineOption === "Scissors") || (playerOption === "Paper" && machineOption === "Rock") || (playerOption === "Scissors" && machineOption === "Paper")) {
@@ -37,4 +42,16 @@ function playGame(playerOption, machineOption) {
     return console.log(str);
 }
 
-playGame(playerOption, computerPlay());
+machineOption = computerPlay();
+
+function game() {
+    for (let i = 0; i < 5; i++) {
+        playRound(playerOption, machineOption);
+        console.log(i + " round, " + 5-i + " more to go!")
+        personOptionInput = prompt("Select your move: ");
+        playerOption = correctedWord();
+        machineOption = computerPlay();
+    }
+}
+
+game();
